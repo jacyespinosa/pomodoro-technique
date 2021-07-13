@@ -1,4 +1,5 @@
 from tkinter import *
+import math
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -6,6 +7,24 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
+
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+def countdown(count):
+    global timer
+    global reps
+    '''
+    Convert the input into minutes (count_min) using the math module and also convert the input into seconds
+    (count_sec). These variables will be used to display as texts on the canvas (e.g. 25:00).
+    '''
+    count_min = math.floor(count / 60)
+    count_sec = count % 60
+    if count_sec < 10:
+        count_sec = f"0{count_sec}"
+
+    canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
+
+    if count > 0:
+        timer = window.after(1000, countdown, count-1)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
